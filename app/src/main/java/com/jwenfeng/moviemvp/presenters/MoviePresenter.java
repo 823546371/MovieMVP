@@ -35,6 +35,9 @@ public class MoviePresenter extends Presenter {
         this.movieView = movieView;
     }
 
+    /**
+     * 获取数据
+     * */
     public void getData() {
         BmobQuery<Movies> query = new BmobQuery<>();
         query.setSkip(curPage * limit);
@@ -71,6 +74,9 @@ public class MoviePresenter extends Presenter {
         });
     }
 
+    /**
+     * 加载更多
+     * */
     public void loadMore() {
         if (!isLast && !isLoading){
             isLoading = true;
@@ -78,6 +84,9 @@ public class MoviePresenter extends Presenter {
         }
     }
 
+    /**
+     * 刷新
+     * */
     public void refresh() {
         curPage = 0;
         movieView.showSwipeRefresh();

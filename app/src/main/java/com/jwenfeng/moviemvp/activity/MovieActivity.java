@@ -1,20 +1,13 @@
 package com.jwenfeng.moviemvp.activity;
 
-import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -49,12 +42,16 @@ public class MovieActivity extends AppCompatActivity implements MovieView, Recyc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        // 设置 presenter
         moviePresenter = new MoviePresenter();
         moviePresenter.attachView(this);
         initializeSwipe();
         initializeRecycler();
     }
 
+    /**
+     * 初始化SwipeRefreshLayout和设置下拉刷新事件
+     * */
     private void initializeSwipe() {
         mainSwipe.setColorSchemeResources(
                 android.R.color.holo_blue_light,
@@ -71,6 +68,9 @@ public class MovieActivity extends AppCompatActivity implements MovieView, Recyc
         });
     }
 
+    /**
+     * 初始化RecyclerView
+     * */
     private void initializeRecycler() {
         mainRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adaper = new MovieAdaper();
@@ -78,6 +78,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView, Recyc
         mainRecyclerView.setAdapter(adaper);
         mainRecyclerView.setOnScrollListener(recyclerScrollListener);
     }
+
 
     @Override
     protected void onStart() {
@@ -141,8 +142,10 @@ public class MovieActivity extends AppCompatActivity implements MovieView, Recyc
         return this;
     }
 
+    /**
+     * 加载更多的判断和触发
+     * */
     private RecyclerView.OnScrollListener recyclerScrollListener = new RecyclerView.OnScrollListener() {
-
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
@@ -161,6 +164,5 @@ public class MovieActivity extends AppCompatActivity implements MovieView, Recyc
 
     @Override
     public void onClick(View v, int position, float x, float y) {
-
     }
 }
